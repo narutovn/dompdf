@@ -88,7 +88,9 @@ class Cache
                     } // From remote
                     else {
                         $tmp_dir = $dompdf->getOptions()->getTempDir();
-                        if (($resolved_url = @tempnam($tmp_dir, "ca_dompdf_img_")) === false) {
+                        // if (($resolved_url = @tempnam($tmp_dir, "ca_dompdf_img_")) === false) {
+                        $resolved_url = $tmp_dir.'/'.uniqid('',true).'.tmp';
+                        if ((@file_put_contents($resolved_url, '')) === false) {
                             throw new ImageException("Unable to create temporary image in " . $tmp_dir, E_WARNING);
                         }
                         $image = "";
